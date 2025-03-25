@@ -1,0 +1,50 @@
+###
+GET http://localhost:4004/odata/v4/catalog/Books
+
+###
+POST http://localhost:4004/odata/v4/catalog/Books
+Content-Type: application/json
+
+{
+  "ID": "c99992",
+  "title": "Test Book",
+  "author": "Test Author",
+  "price": 1
+}
+
+###
+PATCH  http://localhost:4004/odata/v4/catalog/Books(ID = 'c99992')
+Content-Type: application/json
+
+{
+  "title":  "Book Edited",
+  "author": "Unknown Edited",
+  "price": 500
+}
+
+###
+POST http://localhost:4004/odata/v4/catalog/discount
+Content-Type: application/json
+
+{
+  "bookID": "c12345"
+}
+
+###
+POST http://localhost:4004/odata/v4/catalog/importBooks
+Content-Type: application/json
+
+{
+  "isbn": "9781945540622"
+}
+
+###
+GET http://localhost:4004/odata/v4/catalog/Books?$expand=author
+
+###
+POST http://localhost:4004/odata/v4/catalog/discount
+Content-Type: application/json
+
+{
+  "bookID": "c12345"
+}
