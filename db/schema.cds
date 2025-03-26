@@ -13,3 +13,17 @@ entity Authors {
     name  : String;
 }
 
+entity Reservations {
+    key ID  :   UUID;
+    book    :   Association to Books;
+    quantity:   Integer;
+    status  :   String; // Pending or Completed
+}
+
+entity Replenishments {
+  key ID     : UUID;
+  book       : Association to Books;
+  quantity   : Integer;
+  status     : String; // "PENDING", "APPROVED", "REJECTED"
+}
+

@@ -1,6 +1,7 @@
 const cds = require('@sap/cds');
 const sendEmail = require('./email-service');
 
+// Program for Discount
 module.exports = (srv)=>{
     const { Books } = srv.entities;
     // Custom action to apply discount

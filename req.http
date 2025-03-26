@@ -66,3 +66,23 @@ Content-Type: application/json
     "bookID": "58b8a415-de9c-45b8-a8a4-86a6555d5ec8",
     "quantity": 200
 }
+
+###
+POST http://localhost:4004/odata/v4/catalog/reserveBook
+Content-Type: application/json
+
+{
+    "bookID": "c12345",
+    "quantity": 14
+}
+
+###
+GET http://localhost:4004/odata/v4/catalog/Reservations?$expand=book($expand=author)
+
+###
+POST http://localhost:4004/odata/v4/catalog/cancelReservation
+Content-Type: application/json
+
+{
+    "reservationID": "30768ca3-f53a-457f-9f4e-b2ef487e05ec"
+}
