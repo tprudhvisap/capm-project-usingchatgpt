@@ -1,4 +1,5 @@
 const cds = require('@sap/cds');
+const { SELECT, UPDATE } = require('@sap/cds/lib/ql/cds-ql');
 const axios = require('axios');
 
 module.exports = (srv) => {
@@ -57,4 +58,53 @@ module.exports = (srv) => {
             req.error(500, `Failed to import book: ${error.message}`);
         }
     });
+
+    srv.on('updateStock', async(req)=>{
+        const {bookID, quantity} = req.data;
+
+        const book = await SELECT.one.from(Books).where({ID: bookID});
+        if(!book) req.error(400, `Book with ID ${bookID} is not found`);
+
+        const oldStock = book.stock;
+        const newStock = book.stock - quantity;
+        if (newStock < 0) {
+            req.error(400, `Not enough stock for '${book.title}'`);
+        }
+
+        await UPDATE(Books).set({stock: newStock}).where({ID: bookID});
+        await srv.emit ('onStockUpdate',{
+            bookID: bookID,
+            oldStock: oldStock,
+            newStock: newStock
+        });
+        console.log(`✅ Stock updated for '${book.title}': New stock = ${newStock}`);
+        return newStock;
+    })
+
+    srv.on('restockBook', async(req)=>{
+        const {bookID, quantity} = req.data;
+
+        if (quantity <= 0) req.error(400, 'Invalid quantity');
+
+        const book = await SELECT.one.from(Books).where({ID: bookID});
+        if(!book) req.error(400, `Book with ID ${bookID} is not found`);
+
+        const oldStock = book.stock;
+        const newStock = book.stock + quantity;
+        
+        await UPDATE(Books).set({stock: newStock}).where({ID: bookID});
+        await srv.emit ('onStockUpdate',{
+            bookID: bookID,
+            oldStock: oldStock,
+            newStock: newStock
+        });
+        console.log(`✅ Restocked '${book.title}': New stock = ${newStock}`);
+        return newStock;
+    })
+
+    srv.on('onStockUpdate', (event)=>{
+        const { bookID, oldStock, newStock } = event.data || {};
+        console.log(`📢 Stock updated for bookID: ${bookID}`);
+        console.log(`💰 Old Stock: ${oldStock}, New Stock: ${newStock}`);
+    })
 };

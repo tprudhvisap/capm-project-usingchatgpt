@@ -35,7 +35,7 @@ POST http://localhost:4004/odata/v4/catalog/importBooks
 Content-Type: application/json
 
 {
-  "isbn": "9781945540622"
+  "isbn": "9780670858576"
 }
 
 ###
@@ -47,4 +47,22 @@ Content-Type: application/json
 
 {
   "bookID": "c12345"
+}
+
+###
+POST http://localhost:4004/odata/v4/catalog/updateStock
+Content-Type: application/json
+
+{
+    "bookID": "c12345",
+    "quantity": 2
+}
+
+###
+POST http://localhost:4004/odata/v4/catalog/restockBook
+Content-Type: application/json
+
+{
+    "bookID": "58b8a415-de9c-45b8-a8a4-86a6555d5ec8",
+    "quantity": 200
 }

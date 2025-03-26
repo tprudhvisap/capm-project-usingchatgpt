@@ -15,4 +15,13 @@ service CatalogService {
         oldPrice: Decimal;
         newPrice: Decimal;
     }
+
+    action updateStock(bookID: UUID, quantity: Integer) returns Integer;
+    action restockBook(bookID: UUID, quantity: Integer) returns Integer;
+    
+    event onStockUpdate {
+        bookID: UUID;
+        oldStock: Decimal;
+        newStock: Decimal;
+    }
 }

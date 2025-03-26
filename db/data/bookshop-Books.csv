@@ -1,4 +1,6 @@
-ID;title;author_ID;price
-c12345;The Alchemist;c1;15.99
-c67890;1984;c6;12.50
-c11112;Fake Book;c11;5
+ID;title;author_ID;price;stock
+c12345;The Alchemist;c1;15.99;20
+c67890;1984;c6;12.50;30
+c11112;Fake Book;c11;5;40
+58b8a415-de9c-45b8-a8a4-86a6555d5ec8;Circulo / the Circle;708c1dee-fe02-492c-8a7b-37816da16d71;200;15
+849d7c66-7e9a-4553-b965-4366e05e37ea;The Secret Language of Birthdays;0d9ccc69-bc55-4201-a97e-a95aa2c683a2;300;80
